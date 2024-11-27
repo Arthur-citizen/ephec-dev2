@@ -151,17 +151,6 @@ class Fraction:
         PRE : Fraction is valid
         POST : string representation : "int + fraction" 
         """
-        """
-        part_naturel = abs(self.num) // abs(self.den)
-        rest = abs(self.num) % abs(self.den)
-        if self.num < 0:
-            part_naturel = -part_naturel
-        if rest == 0:
-            return str(part_naturel)
-        elif part_naturel == 0:
-            return f'{self.num}/{self.den}'
-        else:
-            return f'{part_naturel} + {rest}/{abs(self.den)}'"""
         part_naturel = self.num // self.den
         if self.num < 0 and self.num % self.den != 0:
             part_naturel += 1

@@ -203,10 +203,42 @@ class Fraction:
         return abs(diff.num) == 1 and diff.den != 0
 
 
-# f1 = Fraction(1, 2)
-# f2 = Fraction(2, 10)
-# f3 = Fraction(68, 40)
-# result = f1 + f2
-# #result = f1 / f3
-# print(f3)
-# print(result)
+def main():
+    f1 = Fraction(1, 2)
+    f2 = Fraction(2, 10)
+    f3 = Fraction(68, 40)
+
+    #opérations
+    print("opérations arithmétiques")
+    print(f"{f1} + {f2} = {f1 + f2}")
+    print(f"{f1} - {f2} = {f1 - f2}")
+    print(f"{f1} * {f3} = {f1 * f3}")
+    print(f"{f1} / {f3} = {f1 / f3}\n")
+
+    print("as_mixed_number")
+    print(f"fraction {f3} en mixte => {f3.as_mixed_number()}\n")
+
+    print("is_adjacent_to")
+    f4 = Fraction(1, 3)
+    print(f"f1 == Fraction(2, 4) => {f1 == Fraction(2, 4)}")
+    print(f"f4 est adjacent à f1 => {f4.is_adjacent_to(f1)}\n")
+
+    print("is_zero, is_integer, is_proper, is_unit")
+    f5 = Fraction(3, 1)
+    f6 = Fraction(0, 5)
+    f7 = Fraction(7, 3)
+
+    print(f"{f6} nul = {f6.is_zero()}")
+    print(f"{f5} un entier=? {f5.is_integer()}")
+    print(f"{f1} propre = {f1.is_proper()}")
+    print(f"{f7} propre = {f7.is_proper()}")
+    print(f"{f1} fraction unitaire = {f1.is_unit()}")
+    print(f"{f3} fraction unitaire = {f3.is_unit()}\n")
+
+    print("float")
+    print(f"décimale de {f1} = {float(f1)}")
+    print(f"decimale de {f2} = {float(f2)}\n")
+
+if __name__ == "__main__":
+    main()
+

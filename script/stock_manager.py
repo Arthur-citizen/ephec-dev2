@@ -5,14 +5,14 @@ import sys
 
 def calculate_average(numbers: List[float]) -> float:
     """
-    Calculate the average of a list of numbers.
+    Calcul la moyenne d'une liste de nombres.
 
     Args:
-        numbers (List[float]): A list of numeric values.
+        numbers (List[float]): Une list de valeurs numériques.
 
     Returns:
-        float: The average of the numbers in the list.
-               Returns 0.0 if the list is empty.
+        float: La moyenne des nombres dans la liste.
+               Retourne 0.0 si la liste est vide.
     """
     if not numbers:
         return 0.0
@@ -21,11 +21,11 @@ def calculate_average(numbers: List[float]) -> float:
 
 def consolidate_csv_files(directory: str, output_file: str) -> None:
     """
-    Consolidate multiple CSV files from a directory into a single file.
+    Consolide plusieurs fichier CSV dans un dossier en un fichier unique.
 
     Args:
-        directory (str): Path to the directory containing the CSV files.
-        output_file (str): Path to the consolidated CSV file.
+        directory (str): Chemin vers le dossier contenant les fichiers CSV.
+        output_file (str): Chemin depuis le script pour créer le dossier consolidé.
     """
     consolidated_data = []
     headers = None
@@ -50,8 +50,6 @@ def consolidate_csv_files(directory: str, output_file: str) -> None:
         writer = csv.writer(file)
         writer.writerows(consolidated_data)
 
-
-import csv
 
 def generate_summary_report(csv_file: str, report_file: str) -> None:
     """

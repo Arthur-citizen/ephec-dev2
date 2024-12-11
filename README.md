@@ -5,7 +5,7 @@ Ce programme permet de consolider des fichiers CSV contenant des informations su
 ## Prérequis
 
 - Python 3.7 ou une version ultérieure.
-- Le module `csv` est inclus par défaut dans Python, donc aucune installation supplémentaire n'est nécessaire.
+- Le module `sys`, `os`, `typing` et `csv`
 
 ## Installation
 
@@ -37,8 +37,9 @@ Ce programme permet de consolider des fichiers CSV contenant des informations su
 
 Exécutez la commande suivante :
 ```bash
-python script.py consolider --input dossier_csv --output fichier_consolide.csv
+python stock_manager.py consolidate dossier_csv fichier_consolide.csv
 ```
+- `stock_manager.py` : Le nom du script
 - `dossier_csv` : Chemin vers le dossier contenant les fichiers CSV à consolider.
 - `fichier_consolide.csv` : Nom du fichier CSV consolidé.
 
@@ -46,8 +47,9 @@ python script.py consolider --input dossier_csv --output fichier_consolide.csv
 
 Exécutez la commande suivante :
 ```bash
-python script.py rapport --input fichier_consolide.csv --output rapport.csv
+python stock_manager.py summarize fichier_consolide.csv rapport.csv
 ```
+- `stock_manager.py` : Le nom du script
 - `fichier_consolide.csv` : Fichier consolidé généré lors de l'étape précédente.
 - `rapport.csv` : Nom du fichier CSV récapitulatif contenant les moyennes par catégorie.
 

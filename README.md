@@ -37,7 +37,7 @@ Ce programme permet de consolider des fichiers CSV contenant des informations su
  
 Exécutez la commande suivante dans un terminal depuis le dossier scritp :
 ```bash
-python stock_manager.py consolidate dossier_csv fichier_consolide.csv
+python stock_manager.py consolidate data fichier_consolide.csv
 ```
 - `stock_manager.py` : Le nom du script
 - `dossier_csv` : Chemin vers le dossier contenant les fichiers CSV à consolider.
@@ -57,11 +57,11 @@ python stock_manager.py summarize fichier_consolide.csv rapport.csv
 1. Placez plusieurs fichiers CSV (par ex. `produits1.csv`, `produits2.csv`) dans un dossier nommé `data/`.
 2. Consolidez-les :
    ```bash
-   python script.py consolider --input data --output consolidé.csv
+   python stock_manager.py consolidate data fichier_consolide.csv
    ```
 3. Générez le rapport :
    ```bash
-   python script.py rapport --input consolidé.csv --output rapport.csv
+   python stock_manager.py summarize fichier_consolide.csv rapport.csv
    ```
 4. Consultez le fichier `rapport.csv` pour voir les moyennes par catégorie.
 

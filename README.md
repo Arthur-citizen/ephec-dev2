@@ -34,8 +34,8 @@ Ce programme permet de consolider des fichiers CSV contenant des informations su
 ## Utilisation
 
 ### 1. Consolider plusieurs fichiers CSV en un seul
-
-Exécutez la commande suivante :
+ 
+Exécutez la commande suivante dans un terminal depuis le dossier scritp :
 ```bash
 python stock_manager.py consolidate dossier_csv fichier_consolide.csv
 ```

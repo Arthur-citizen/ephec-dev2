@@ -3,7 +3,7 @@ from math import gcd
 
 class TestFraction(unittest.TestCase):
 
-    #test du init
+    #test de l'init
     def test_init(self):
         f1 = Fraction(3, 4)
         self.assertEqual(f1.numerator, 3)
@@ -40,6 +40,7 @@ class TestFraction(unittest.TestCase):
         f1 = Fraction(1, 2)
         f2 = Fraction(1, 4)
         self.assertEqual(f1 / f2, Fraction(2, 1))
+        self.assertEqual(f2 / f1, Fraction(2, 4))
         
         with self.assertRaises(ZeroDivisionError):
             f1 / Fraction(0, 1)
@@ -81,11 +82,13 @@ class TestFraction(unittest.TestCase):
         f1 = Fraction(3, 4)
         f2 = Fraction(1, 4)
         self.assertEqual(f1 - f2, Fraction(1, 2))
+        self.assertEqual(f1 - Fraction(2, 4), Fraction(1, 4))
 
     def test_mul(self):
         f1 = Fraction(3, 4)
         f2 = Fraction(2, 3)
         self.assertEqual(f1 * f2, Fraction(1, 2))
+        self.assertEqual(f2 * f2, Fraction(4, 9))
 
     def test_float(self):
         self.assertAlmostEqual(float(Fraction(1, 2)), 0.5)
@@ -131,7 +134,7 @@ class Fraction:
     def __str__(self) :
         """Return a textual representation of the reduced form of the fraction
 
-        PRE : Fraction is valide
+        PRE :
         POST : string representation : "num" if den == 0 or "num/den" 
         """        
         commun = gcd(self.num, self.den) #calcul du plus grand commun diviseur (PGCD)
@@ -148,7 +151,7 @@ class Fraction:
 
         A mixed number is the sum of an integer and a proper fraction
 
-        PRE : Fraction is valid
+        PRE :
         POST : string representation : "int + fraction" 
         """
         part_naturel = self.num // self.den
@@ -168,7 +171,7 @@ class Fraction:
         """Overloading of the + operator for fractions
 
          PRE : other is a instance of Fraction
-         POST : return the sum in the form of a fraction
+         POST : return the sum in the form of a new fraction
          """
         n_num = self.num * other.den + other.num * self.den
         n_den = self.den * other.den

@@ -1,22 +1,7 @@
 import csv
 import os
-from typing import List
 import sys
-
-def calculate_average(numbers: List[float]) -> float:
-    """
-    Calcul la moyenne d'une liste de nombres.
-
-    Args:
-        numbers (List[float]): Une list de valeurs numériques.
-
-    Returns:
-        float: La moyenne des nombres dans la liste.
-               Retourne 0.0 si la liste est vide.
-    """
-    if not numbers:
-        return 0.0
-    return sum(numbers) / len(numbers)
+from typing import List
 
 
 def consolidate_csv_files(directory: str, output_file: str) -> None:
@@ -64,15 +49,18 @@ def generate_summary_report(csv_file: str, report_file: str) -> None:
     """
     # Dictionnaire pour stocker les totaux par catégorie
     category_data = {}
-
     # Lecture du fichier CSV d'entrée
     with open(csv_file, mode="r", newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
         for row in reader:
             # Lecture des données avec les noms exacts des colonnes
             categorie = row.get("catégorie", "Inconnue")
-            prix_unitaire = float(row.get("prix", 0.0))
-            quantite = int(row.get("quantite", 0))
+            try:
+                prix_unitaire = float(row["prix"])
+                quantite = int(row["quantite"])
+            except (ValueError, KeyError):
+                print(f"Ligne ignorée à cause de données invalides: {row}")
+                continue  # Ignorer cette ligne et passer à la suivante
 
             # Initialisation de la catégorie si nécessaire
             if categorie not in category_data:
@@ -81,6 +69,18 @@ def generate_summary_report(csv_file: str, report_file: str) -> None:
             # Mise à jour des totaux
             category_data[categorie]["total_prix"] += prix_unitaire * quantite
             category_data[categorie]["total_quantite"] += quantite
+
+    # Écriture du fichier de rapport
+    with open(report_file, mode="w", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["catégorie", "prix_moyen", "quantité_en_stock"])
+
+        # Calcul de la moyenne par catégorie et écriture dans le fichier
+        for categorie, data in category_data.items():
+            total_prix = data["total_prix"]
+            total_quantite = data["total_quantite"]
+            prix_moyen = total_prix / total_quantite if total_quantite > 0 else 0.0
+            writer.writerow([categorie, round(prix_moyen, 2), total_quantite])
 
     # Écriture du fichier de rapport
     with open(report_file, mode="w", newline="", encoding="utf-8") as file:

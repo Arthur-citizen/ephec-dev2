@@ -1,8 +1,22 @@
-import unittest
 import csv
 import os
-from io import StringIO
+import unittest
 from stock_manager import generate_summary_report  # Remplacez par le nom du fichier contenant votre code
+
+
+def write_csv(filename, content):
+    """Helper pour écrire un fichier CSV."""
+    with open(filename, mode="w", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerows(content)
+
+
+def read_csv(filename):
+    """Helper pour lire un fichier CSV."""
+    with open(filename, mode="r", newline="", encoding="utf-8") as file:
+        reader = csv.reader(file)
+        return list(reader)
+
 
 class TestGenerateSummaryReport(unittest.TestCase):
 
@@ -17,18 +31,6 @@ class TestGenerateSummaryReport(unittest.TestCase):
             os.remove(self.input_csv)
         if os.path.exists(self.output_csv):
             os.remove(self.output_csv)
-
-    def write_csv(self, filename, content):
-        """Helper pour écrire un fichier CSV."""
-        with open(filename, mode="w", newline="", encoding="utf-8") as file:
-            writer = csv.writer(file)
-            writer.writerows(content)
-
-    def read_csv(self, filename):
-        """Helper pour lire un fichier CSV."""
-        with open(filename, mode="r", newline="", encoding="utf-8") as file:
-            reader = csv.reader(file)
-            return list(reader)
 
     def test_generate_summary_report_basic(self):
         # Données d'entrée
@@ -46,13 +48,13 @@ class TestGenerateSummaryReport(unittest.TestCase):
             ["Légumes", "1.2", "5"]
         ]
 
-        self.write_csv(self.input_csv, input_data)
+        write_csv(self.input_csv, input_data)
 
         # Appel de la fonction
         generate_summary_report(self.input_csv, self.output_csv)
 
         # Vérification du fichier de sortie
-        output_data = self.read_csv(self.output_csv)
+        output_data = read_csv(self.output_csv)
         self.assertEqual(output_data, expected_output)
 
     def test_generate_summary_report_empty(self):
@@ -62,33 +64,33 @@ class TestGenerateSummaryReport(unittest.TestCase):
         # Fichier attendu
         expected_output = [["catégorie", "prix_moyen", "quantité_en_stock"]]
 
-        self.write_csv(self.input_csv, input_data)
+        write_csv(self.input_csv, input_data)
 
         # Appel de la fonction
         generate_summary_report(self.input_csv, self.output_csv)
 
         # Vérification du fichier de sortie
-        output_data = self.read_csv(self.output_csv)
+        output_data = read_csv(self.output_csv)
         self.assertEqual(output_data, expected_output)
 
     def test_generate_summary_report_invalid_data(self):
         # Données d'entrée avec des valeurs invalides
         input_data = [
             ["catégorie", "prix", "quantite"],
-            ["Fruits", "abc", "10"],
-            ["Légumes", "1.2", "xyz"]
+            ["Fruits", "abc", "10"],  # Ligne invalide
+            ["Légumes", "1.2", "xyz"]  # Ligne invalide
         ]
 
-        # Fichier attendu
+        # Fichier attendu (seul l'en-tête, car toutes les données sont invalides)
         expected_output = [["catégorie", "prix_moyen", "quantité_en_stock"]]
 
-        self.write_csv(self.input_csv, input_data)
+        write_csv(self.input_csv, input_data)
 
         # Appel de la fonction
         generate_summary_report(self.input_csv, self.output_csv)
 
         # Vérification du fichier de sortie
-        output_data = self.read_csv(self.output_csv)
+        output_data = read_csv(self.output_csv)
         self.assertEqual(output_data, expected_output)
 
 if __name__ == "__main__":

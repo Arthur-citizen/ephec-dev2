@@ -6,11 +6,12 @@ from typing import List
 
 def consolidate_csv_files(directory: str, output_file: str) -> None:
     """
-    Consolide plusieurs fichier CSV dans un dossier en un fichier unique.
-
-    Args:
-        directory (str): Chemin vers le dossier contenant les fichiers CSV.
-        output_file (str): Chemin depuis le script pour créer le dossier consolidé.
+    PRE :   - le dossier contient des fichiers CSV à consolider.
+            - le nom du dossier ne contient pas de caractères spéciaux ou accentués.
+            - le dossier contient au moins un fichier CSV.
+    POST :  - Consolide tous les fichiers CSV dans un seul dans le dossier spécifié. 
+    RAISES: - ValueError si les en-têtes des fichiers CSV ne sont pas identiques.
+            - Exception si aucun fichier CSV n'est trouvé dans le dossier.
     """
     consolidated_data = []
     headers = None
@@ -30,6 +31,8 @@ def consolidate_csv_files(directory: str, output_file: str) -> None:
 
                 for row in reader:
                     consolidated_data.append(row)
+        else:
+            raise Exception("aucun fichier CSV trouvé dans le dossier")
 
     with open(output_file, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
@@ -38,14 +41,11 @@ def consolidate_csv_files(directory: str, output_file: str) -> None:
 
 def generate_summary_report(csv_file: str, report_file: str) -> None:
     """
-    Génère un rapport récapitulatif avec la moyenne des prix par catégorie.
-
-    Args:
-        csv_file (str): Chemin du fichier CSV d'entrée.
-        report_file (str): Chemin du fichier CSV de sortie pour le rapport.
-
-    Returns:
-        None
+    PRE :   - Les fichiers CSV on les colonnes "catégorie"(str), "prix"(float) et "quantité"(int).
+    POST :  - Crée un fichier CSV à l'emplacement `report_file` avec les colonnes : "catégorie", "prix_moyen", "quantité_en_stock".
+            - Les valeurs de "prix_moyen" et "quantité_en_stock" sont calculées pour chaque catégorie présente dans le fichier CSV spécifié.
+    RAISES: - ValueError si les données ne sont pas convertibles en float ou int.
+            - KeyError si une colonne manque dans le fichier CSV.
     """
     # Dictionnaire pour stocker les totaux par catégorie
     category_data = {}
@@ -59,7 +59,7 @@ def generate_summary_report(csv_file: str, report_file: str) -> None:
                 prix_unitaire = float(row["prix"])
                 quantite = int(row["quantite"])
             except (ValueError, KeyError):
-                print(f"Ligne ignorée à cause de données invalides: {row}")
+                # print(f"Ligne ignorée à cause de données invalides: {row}")
                 continue  # Ignorer cette ligne et passer à la suivante
 
             # Initialisation de la catégorie si nécessaire

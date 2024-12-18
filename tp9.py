@@ -5,9 +5,10 @@ class TestFraction(unittest.TestCase):
 
     #test de l'init
     def test_init(self):
-        f1 = Fraction(3, 4)
-        self.assertEqual(f1.numerator, 3)
-        self.assertEqual(f1.denominator, 4)
+        self.assertEqual(Fraction(3, 4).numerator, 3)
+        self.assertEqual(Fraction(3, 4).denominator, 4)
+        self.assertEqual(Fraction(10, 4).numerator, 5)
+        self.assertEqual(Fraction(-10, 4).numerator, -5)
 
         with self.assertRaises(ValueError):
             Fraction(1, 0)
@@ -30,20 +31,26 @@ class TestFraction(unittest.TestCase):
 
     #test de l'addition
     def test_add(self):
-        f1 = Fraction(1, 2)
-        f2 = Fraction(1, 3)
-        self.assertEqual(f1 + f2, Fraction(5, 6))
+        self.assertEqual(Fraction(1, 2) + Fraction(1, 3), Fraction(5, 6))
         self.assertEqual(Fraction(1, 4) + Fraction(-1, 4), Fraction(0, 1))
+        self.assertEqual(Fraction(1, 4) + Fraction(3, 4), Fraction(1, 1))
+        self.assertEqual(Fraction(-1, 2) + Fraction(-1, 3), Fraction(-5, 6))
+        self.assertEqual(Fraction(1, 2) + Fraction(0, 1), Fraction(1, 2))
+        self.assertEqual(Fraction(0, 1) + Fraction(1, 2), Fraction(1, 2))
+        self.assertEqual(Fraction(1, 2) + Fraction(3, 2), Fraction(2, 1))
 
     #test de la division
     def test_div(self):
-        f1 = Fraction(1, 2)
-        f2 = Fraction(1, 4)
-        self.assertEqual(f1 / f2, Fraction(2, 1))
-        self.assertEqual(f2 / f1, Fraction(2, 4))
-        
+        self.assertEqual(Fraction(1, 2) / Fraction(1, 4), Fraction(2, 1))
+        self.assertEqual(Fraction(1, 4) / Fraction(1, 2), Fraction(2, 4))
+        self.assertEqual(Fraction(1, 2) / Fraction(-1, 4), Fraction(-2, 1))
+        self.assertEqual(Fraction(-1, 2) / Fraction(-1, 4), Fraction(2, 1))
+        self.assertEqual(Fraction(3, 4) / Fraction(1, 1), Fraction(3, 4))
+        self.assertEqual(Fraction(1, 2) / Fraction(3, 2), Fraction(1, 3))
+        self.assertEqual(Fraction(-1, 2) / Fraction(3, 2), Fraction(-1, 3))
+
         with self.assertRaises(ZeroDivisionError):
-            f1 / Fraction(0, 1)
+            Fraction(1, 2) / Fraction(0, 1)
 
     #test de l'égalité (__eq__)
     def test_eq(self):
@@ -64,10 +71,8 @@ class TestFraction(unittest.TestCase):
 
     #test de is_adjacent_to
     def test_is_adjacent_to(self):
-        f1 = Fraction(1, 2)
-        f2 = Fraction(1, 3)
-        self.assertTrue(f1.is_adjacent_to(f2))
-        self.assertFalse(f1.is_adjacent_to(Fraction(2, 10)))
+        self.assertTrue(Fraction(1, 2).is_adjacent_to(Fraction(1, 3)))
+        self.assertFalse(Fraction(1, 2).is_adjacent_to(Fraction(2, 10)))
 
     #test supplémentaire flèmme d'écrire
     def test_is_zero(self):
@@ -79,16 +84,22 @@ class TestFraction(unittest.TestCase):
         self.assertFalse(Fraction(2, 3).is_unit())
 
     def test_sub(self):
-        f1 = Fraction(3, 4)
-        f2 = Fraction(1, 4)
-        self.assertEqual(f1 - f2, Fraction(1, 2))
-        self.assertEqual(f1 - Fraction(2, 4), Fraction(1, 4))
+        self.assertEqual(Fraction(3, 4) - Fraction(1, 4), Fraction(1, 2))
+        self.assertEqual(Fraction(3, 4) - Fraction(2, 4), Fraction(1, 4))
+        self.assertEqual(Fraction(3, 4) - Fraction(-1, 4), Fraction(1, 1))
+        self.assertEqual(Fraction(-3, 4) - Fraction(1, 4), Fraction(-1, 1))
+        self.assertEqual(Fraction(3, 4) - Fraction(0, 1), Fraction(3, 4))
+        self.assertEqual(Fraction(0, 1) - Fraction(3, 4), Fraction(-3, 4))
+        self.assertEqual(Fraction(8, 4) - Fraction(1, 2), Fraction(6, 4))
 
     def test_mul(self):
-        f1 = Fraction(3, 4)
-        f2 = Fraction(2, 3)
-        self.assertEqual(f1 * f2, Fraction(1, 2))
-        self.assertEqual(f2 * f2, Fraction(4, 9))
+        self.assertEqual(Fraction(3, 4) * Fraction(2, 3), Fraction(1, 2))
+        self.assertEqual(Fraction(2, 3) * Fraction(2, 3), Fraction(4, 9))
+        self.assertEqual(Fraction(3, 4) * Fraction(-2, 3), Fraction(-1, 2))
+        self.assertEqual(Fraction(0, 1) * Fraction(3, 4), Fraction(0, 1))
+        self.assertEqual(Fraction(5, 3) * Fraction(3, 5), Fraction(1, 1))
+        self.assertEqual(Fraction(-1, 2) * Fraction(-2, 3), Fraction(1, 3))
+        self.assertEqual(Fraction(1, 2) * Fraction(0, 1), Fraction(0, 1))
 
     def test_float(self):
         self.assertAlmostEqual(float(Fraction(1, 2)), 0.5)
@@ -97,8 +108,9 @@ class TestFraction(unittest.TestCase):
     def test_pow(self):
         self.assertEqual(Fraction(2, 3) ** 2, Fraction(4, 9))
         self.assertEqual(Fraction(2, 3) ** -1, Fraction(3, 2))
-        with self.assertRaises(ZeroDivisionError):
-            Fraction(0, 5) ** -2
+        self.assertEqual(Fraction(3, 4) ** 3, Fraction(27, 64))
+        self.assertEqual(Fraction(3, 4) ** -2, Fraction(16, 9))
+        self.assertEqual(Fraction(2, 3) ** 0, Fraction(1, 1))
 
 
 class Fraction:
@@ -110,40 +122,57 @@ class Fraction:
     """
 
     def __init__(self, num=0, den=1):
-        """This builds a fraction based on some numerator and denominator.
+        """Initializes a fraction with a numerator and denominator.
 
-        PRE : den != 0 by default it's 1
-        POST : num and den are initialized
+        PRE: den != 0 by default it's 1
+        POST: Fraction is reduced to its simplest form.
         """
-        self.num = num
-        self.den = den
-        if isinstance(self.num, float) or  isinstance(self.den, float):
-            raise ValueError("numerator and denominator cannot be a float")
-        if self.den == 0:
-            raise ValueError("denominator cannot be zero")
+        if not isinstance(num, int) or not isinstance(den, int):
+            raise ValueError("Numerator and denominator must be integers.")
+
+        if den == 0:
+            raise ValueError("Denominator cannot be zero.")
+
+        common = gcd(num, den)  # Calculate the greatest common divisor (GCD)
+        num = num // common
+        den = den // common
+
+        # Ensure the denominator is positive
+        if den < 0:
+            num = -num
+            den = -den
+
+        self.__num = num
+        self.__den = den
 
     @property
     def numerator(self):
-        return self.num
+        """Returns the numerator of the fraction."""
+        return self.__num
+
     @property
     def denominator(self):
-        return self.den
+        """Returns the denominator of the fraction."""
+        return self.__den
 
 # ------------------ Textual representations ------------------
 
     def __str__(self) :
         """Return a textual representation of the reduced form of the fraction
 
-        PRE :
+        PRE : -
         POST : string representation : "num" if den == 0 or "num/den" 
-        """        
-        commun = gcd(self.num, self.den) #calcul du plus grand commun diviseur (PGCD)
-        reduced_num = self.num // commun #division entière
-        reduced_den = self.den // commun
+        """    
+        commun = gcd(self.__num, self.__den) #calcul du plus grand commun diviseur (PGCD)
+        reduced_num = self.__num // commun #division entière
+        reduced_den = self.__den // commun
         if reduced_den < 0: #le dénominateur est gardé positif
             reduced_num = -reduced_num
             reduced_den = -reduced_den
-        return str(reduced_num) if reduced_den == 1 else f"{reduced_num}/{reduced_den}"
+        if reduced_den == 1:
+            return f"{reduced_num}"
+        else:
+            return str(reduced_num) if reduced_den == 1 else f"{reduced_num}/{reduced_den}"
         
 
     def as_mixed_number(self) :
@@ -151,18 +180,18 @@ class Fraction:
 
         A mixed number is the sum of an integer and a proper fraction
 
-        PRE :
+        PRE : -
         POST : string representation : "int + fraction" 
         """
-        part_naturel = self.num // self.den
-        if self.num < 0 and self.num % self.den != 0:
+        part_naturel = self.__num // self.__den
+        if self.__num < 0 and self.__num % self.__den != 0:
             part_naturel += 1
-        reste = abs(self.num % self.den)
+        reste = abs(self.__num % self.__den)
         if reste == 0:
             return str(part_naturel)
         if part_naturel == 0:
-            return f"{reste}/{abs(self.den)}"
-        return f"{part_naturel} + {reste}/{abs(self.den)}"
+            return f"{reste}/{abs(self.__den)}"
+        return f"{part_naturel} + {reste}/{abs(self.__den)}"
 
     
 # ------------------ Operators overloading ------------------
@@ -173,8 +202,8 @@ class Fraction:
          PRE : other is a instance of Fraction
          POST : return the sum in the form of a new fraction
          """
-        n_num = self.num * other.den + other.num * self.den
-        n_den = self.den * other.den
+        n_num = self.__num * other.__den + other.__num * self.__den
+        n_den = self.__den * other.__den
         return Fraction(n_num, n_den)
 
 
@@ -184,8 +213,8 @@ class Fraction:
         PRE : other is a instance of Fraction
         POST : return the difference in the form of a fraction
         """
-        n_num = self.num * other.den - other.num * self.den
-        n_den = self.den * other.den
+        n_num = self.__num * other.__den - other.__num * self.__den
+        n_den = self.__den * other.__den
         return Fraction(n_num, n_den)
 
 
@@ -195,8 +224,8 @@ class Fraction:
         PRE : other is a instance of Fraction
         POST : return the product in the form of a fraction
         """
-        n_num = self.num * other.num
-        n_den = self.den * other.den
+        n_num = self.__num * other.__num
+        n_den = self.__den * other.__den
         return Fraction(n_num, n_den)
 
 
@@ -205,12 +234,13 @@ class Fraction:
 
         PRE : other is a instance of Fraction
         POST : return the division in the form of a fraction
+        Raises : ZeroDivisionError when trying to divide by zero
         """
 
-        if other.num == 0:
+        if other.__num == 0:
             raise ZeroDivisionError("Cannot divide by zero.")
-        n_num = self.num * other.den
-        n_den = self.den * other.num
+        n_num = self.__num * other.__den
+        n_den = self.__den * other.__num
         return Fraction(n_num, n_den)
 
 
@@ -222,12 +252,12 @@ class Fraction:
         """
 
         if puissance >= 0:
-            return Fraction(self.num ** puissance, self.den ** puissance)
+            return Fraction(self.__num ** puissance, self.__den ** puissance)
         else:
-            if self.num == 0:
-                raise ZeroDivisionError
-            n_num = self.den
-            n_den = self.num
+            if self.__num == 0:
+                return Fraction(0, 1)
+            n_num = self.__den
+            n_den = self.__num
             puissance = abs(puissance)
             return Fraction(n_num ** puissance, n_den ** puissance)
 
@@ -240,18 +270,18 @@ class Fraction:
         """
         if not isinstance(other, Fraction):
             raise TypeError("Error: type not corresponding to the class fraction")
-        gcd_self = gcd(self.num, self.den)
-        gcd_other = gcd(other.num, other.den)
-        return (self.num // gcd_self == other.num // gcd_other) and \
-            (self.den // gcd_self == other.den // gcd_other)
+        gcd_self = gcd(self.__num, self.__den)
+        gcd_other = gcd(other.__num, other.__den)
+        return (self.__num // gcd_self == other.__num // gcd_other) and \
+            (self.__den // gcd_self == other.__den // gcd_other)
         
     def __float__(self) :
         """Returns the decimal value of the fraction
 
-        PRE : Fraction is valide
+        PRE : -
         POST : return a float
         """
-        return self.num / self.den
+        return self.__num / self.__den
 
 # TODO : [BONUS] You can overload other operators if you wish (ex : <, >, ...)
 
@@ -262,35 +292,35 @@ class Fraction:
     def is_zero(self):
         """Check if a fraction's value is 0
 
-        PRE : Fraction is valid
+        PRE : -
         POST : return True if the fraction == 0 and False when not
         """
-        return self.num == 0
+        return self.__num == 0
 
 
     def is_integer(self):
         """Check if a fraction is integer (ex : 8/4, 3, 2/2, ...)
 
-        PRE : Fraction is valid
+        PRE : -
         POST : return True if the fraction can be simplified to an int and False when not
         """
-        return self.num % self.den == 0
+        return self.__num % self.__den == 0
 
     def is_proper(self):
         """Check if the absolute value of the fraction is < 1
 
-        PRE : Fraction is valid
+        PRE : -
         POST : return True when the absolute value of the fraction is < 1, False when not
         """
-        return abs(self.num) < abs(self.den)
+        return abs(self.__num) < abs(self.__den)
 
     def is_unit(self):
         """Check if a fraction's numerator is 1 in its reduced form
 
-        PRE : Fraction is valid
+        PRE : -
         POST : return True when the num is 1, False when not
         """
-        return abs(self.num) == 1 and self.den != 0
+        return abs(self.__num) == 1 and self.__den != 0
 
     def is_adjacent_to(self, other) :
         """Check if two fractions differ by a unit fraction
@@ -301,7 +331,7 @@ class Fraction:
         POST : return True if the absolute difference a unit fraction, False when not (unit fraction = fraction unitaire ex: 1/6, 1/2)
         """
         diff = self - other
-        return abs(diff.num) == 1 and abs(diff.den) > 0  # Consider absolute value for denominator
+        return abs(diff.__num) == 1 and abs(diff.__den) > 0  # Consider absolute value for denominator
 
 
 if __name__ == "__main__":

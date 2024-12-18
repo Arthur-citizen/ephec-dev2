@@ -32,7 +32,7 @@ class Fraction:
     def __str__(self) :
         """Return a textual representation of the reduced form of the fraction
 
-        PRE : Fraction is valide
+        PRE : -
         POST : string representation : "num" if den == 0 or "num/den" 
         """        
         commun = gcd(self.num, self.den) #calcul du plus grand commun diviseur (PGCD)
@@ -49,7 +49,7 @@ class Fraction:
 
         A mixed number is the sum of an integer and a proper fraction
 
-        PRE : Fraction is valid
+        PRE : -
         POST : string representation : "int + fraction" 
         """
         part_naturel = self.num // self.den
@@ -67,7 +67,7 @@ class Fraction:
     def __add__(self, other):
         """Overloading of the + operator for fractions
 
-         PRE : other is a instance of Fraction
+         PRE : -
          POST : return the sum in the form of a fraction
          """
         n_num = self.num * other.den + other.num * self.den
@@ -78,7 +78,7 @@ class Fraction:
     def __sub__(self, other):
         """Overloading of the - operator for fractions
 
-        PRE : other is a instance of Fraction
+        PRE : -
         POST : return the difference in the form of a fraction
         """
         n_num = self.num * other.den - other.num * self.den
@@ -89,7 +89,7 @@ class Fraction:
     def __mul__(self, other):
         """Overloading of the * operator for fractions
 
-        PRE : other is a instance of Fraction
+        PRE : -
         POST : return the product in the form of a fraction
         """
         n_num = self.num * other.num
@@ -100,7 +100,7 @@ class Fraction:
     def __truediv__(self, other):
         """Overloading of the / operator for fractions
 
-        PRE : other is a instance of Fraction
+        PRE : -
         POST : return the division in the form of a fraction
         """
         try:
@@ -139,7 +139,7 @@ class Fraction:
     def __eq__(self, other) : 
         """Overloading of the == operator for fractions
         
-        PRE : other is a instance of Fraction
+        PRE : -
         POST : return True when the fractions are equal and False when not 
         """
         return self.num == other.num and self.den == other.den
@@ -147,7 +147,7 @@ class Fraction:
     def __float__(self) :
         """Returns the decimal value of the fraction
 
-        PRE : Fraction is valide
+        PRE : -
         POST : return a float
         """
         return self.num / self.den
@@ -161,7 +161,7 @@ class Fraction:
     def is_zero(self):
         """Check if a fraction's value is 0
 
-        PRE : Fraction is valid
+        PRE : -
         POST : return True if the fraction == 0 and False when not
         """
         return self.num == 0
@@ -170,7 +170,7 @@ class Fraction:
     def is_integer(self):
         """Check if a fraction is integer (ex : 8/4, 3, 2/2, ...)
 
-        PRE : Fraction is valid
+        PRE : -
         POST : return True if the fraction can be simplified to an int and False when not
         """
         return self.num % self.den == 0
@@ -178,7 +178,7 @@ class Fraction:
     def is_proper(self):
         """Check if the absolute value of the fraction is < 1
 
-        PRE : Fraction is valid
+        PRE : -
         POST : return True when the absolute value of the fraction is < 1, False when not
         """
         return abs(self.num) < abs(self.den)
@@ -186,7 +186,7 @@ class Fraction:
     def is_unit(self):
         """Check if a fraction's numerator is 1 in its reduced form
 
-        PRE : Fraction is valid
+        PRE : -
         POST : return True when the num is 1, False when not
         """
         return abs(self.num) == 1 and self.den != 0
@@ -196,7 +196,7 @@ class Fraction:
 
         Two fractions are adjacents if the absolute value of the difference them is a unit fraction
 
-        PRE : other is a instance of Fraction
+        PRE : -
         POST : return True if the absolute difference a unit fraction, False when not (unit fraction = fraction unitaire ex: 1/6, 1/2)
         """
         diff = self - other

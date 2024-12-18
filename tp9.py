@@ -126,6 +126,7 @@ class Fraction:
 
         PRE: den != 0 by default it's 1
         POST: Fraction is reduced to its simplest form.
+              And the numerator and denominator are stored as private attributes.
         """
         if not isinstance(num, int) or not isinstance(den, int):
             raise ValueError("Numerator and denominator must be integers.")
@@ -161,7 +162,8 @@ class Fraction:
         """Return a textual representation of the reduced form of the fraction
 
         PRE : -
-        POST : string representation : "num" if den == 0 or "num/den" 
+        POST :  string representation : "num" if den == 0 or "num/den" 
+                And the fraction is in its simplest form.
         """    
         commun = gcd(self.__num, self.__den) #calcul du plus grand commun diviseur (PGCD)
         reduced_num = self.__num // commun #division entière
@@ -250,8 +252,9 @@ class Fraction:
         PRE : other is an int
         POST : return the fraction raised to the power of other
         """
-
-        if puissance >= 0:
+        if puissance == 0:
+            return Fraction(1, 1)  # 1 ** 0 = 1
+        elif puissance >= 0:
             return Fraction(self.__num ** puissance, self.__den ** puissance)
         else:
             if self.__num == 0:
@@ -279,7 +282,7 @@ class Fraction:
         """Returns the decimal value of the fraction
 
         PRE : -
-        POST : return a float
+        POST : return a float of the fraction
         """
         return self.__num / self.__den
 

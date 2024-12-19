@@ -1,6 +1,6 @@
 #Utilisation de chatGPT mais coed compris
-# Classe FichierJoint
-class FichierJoint:
+# Classe Fichier_joint
+class Fichier_joint:
     def __init__(self, nom, taille, path):
         self.nom = nom
         self.taille = taille
@@ -20,7 +20,7 @@ class Email:
 
 # Exemple d'utilisation
 email = Email("alice@example.com", "bob@example.com", "Projet", "Bonjour, voici le projet.")
-email.ajouter_fichier_joint(FichierJoint("document.pdf", 1024))
+email.ajouter_fichier_joint(Fichier_joint("document.pdf", 1024, "document/"))
 
 print(f"De: {email.expediteur}, À: {email.destination}")
 print(f"Titre: {email.titre}, Texte: {email.texte}")

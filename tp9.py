@@ -111,6 +111,7 @@ class TestFraction(unittest.TestCase):
         self.assertEqual(Fraction(3, 4) ** 3, Fraction(27, 64))
         self.assertEqual(Fraction(3, 4) ** -2, Fraction(16, 9))
         self.assertEqual(Fraction(2, 3) ** 0, Fraction(1, 1))
+        self.assertEqual(Fraction(0, 1) ** 1, Fraction(0, 1))
 
 
 class Fraction:
@@ -127,6 +128,8 @@ class Fraction:
         PRE: den != 0 by default it's 1
         POST: Fraction is reduced to its simplest form.
               And the numerator and denominator are stored as private attributes.
+        RAISES: ValueError if numerator or denominator is not an integer.
+                ValueError if denominator is 0.
         """
         if not isinstance(num, int) or not isinstance(den, int):
             raise ValueError("Numerator and denominator must be integers.")
@@ -270,6 +273,7 @@ class Fraction:
         PRE : other is a instance of Fraction
         POST :  - return True when the fractions are equal and False when not
                 - reduce the fractions before testing if they are equals
+        RAISES : TypeError if other is not an instance of Fraction
         """
         if not isinstance(other, Fraction):
             raise TypeError("Error: type not corresponding to the class fraction")

@@ -1,4 +1,4 @@
-#Utilisation de chatGPT et code compris
+#Utilisation de chatGPT, code compris et modifié
 # Classe Animal
 class Animal:
     def __init__(self, regime, habitat):
@@ -10,6 +10,9 @@ class Animal:
 
     def ajouter_membre(self, membre):
         self.membres.append(membre)
+    
+    def __str__(self):
+        return f"Animal de regime {self.regime} et habitat {self.habitat}. Tête : {self.tete.description}, Corp : {self.corp.description}, Membres : {', '.join([membre.nom for membre in self.membres])}"
 
 
 # Classe Tete
@@ -37,16 +40,15 @@ class Lapin(Animal):
     def __init__(self, habitat):
         super().__init__(regime="Herbivore", habitat=habitat)
 
-class Mouton(Animal):
+class Tigre(Animal):
     def __init__(self, habitat):
-        super().__init__(regime="Herbivore", habitat=habitat)
+        super().__init__(regime="Carnivore", habitat=habitat)
 
 # Exemple d'utilisation
 if __name__ == "__main__":
-    prairie = Habitat("Prairie")
 
     # Création d'un Lapin
-    lapin = Lapin(habitat=prairie)
+    lapin = Lapin(habitat=Habitat("Prairie"))
     lapin.ajouter_membre(Membre("Patte avant gauche"))
     lapin.ajouter_membre(Membre("Patte avant droite"))
     lapin.ajouter_membre(Membre("Patte arrière gauche"))
@@ -54,14 +56,14 @@ if __name__ == "__main__":
 
     # Affichage des informations du lapin
     print("Informations sur le Lapin :")
-    lapin.afficher_info()
+    print(lapin)
 
-    # Création d'un Mouton
-    mouton = Mouton(habitat=prairie)
-    mouton.ajouter_membre(Membre("Patte 1"))
-    mouton.ajouter_membre(Membre("Patte 2"))
-    mouton.ajouter_membre(Membre("Patte 3"))
-    mouton.ajouter_membre(Membre("Patte 4"))
+    # Création d'un tigre
+    tigre = Tigre(habitat=Habitat("Foret"))
+    tigre.ajouter_membre(Membre("Patte 1"))
+    tigre.ajouter_membre(Membre("Patte 2"))
+    tigre.ajouter_membre(Membre("Patte 3"))
+    tigre.ajouter_membre(Membre("Patte 4"))
 
-    print("\nInformations sur le Mouton :")
-    mouton.afficher_info()
+    print("\nInformations sur le tigre :")
+    print(tigre)

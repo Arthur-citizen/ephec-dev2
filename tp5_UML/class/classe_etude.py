@@ -13,6 +13,9 @@ class Personne:
     def __init__(self, etatCivil: str, coordonnees: Coordonnees):
         self.etatCivil = etatCivil
         self.coordonnees = coordonnees
+    
+    def __str__(self):
+        return f"État civil: {self.etatCivil}, Coordonnées: {self.coordonnees}"
 
 # Classe Élève
 class Eleve(Personne):
@@ -29,6 +32,13 @@ class Classe:
     def __init__(self, professeur: Professeur):
         self.professeur = professeur
         self.eleves = []
+
+    def __str__(self):
+        return f"Professeur: {self.professeur}, Élèves: {len(self.eleves)}"
+    
+    def ajouter_professeur(self, nom: str, coordonnees: str):
+        self.professeur = Professeur(nom, self.professeur.coordonnees)
+
 
     def ajouter_eleve(self, eleve: Eleve):
         if len(self.eleves) < 30:
@@ -58,4 +68,4 @@ if __name__ == "__main__":
 
     # Affichage des informations de la classe
     print("Informations de la Classe :")
-    ma_classe.afficher_classe()
+    print(ma_classe)

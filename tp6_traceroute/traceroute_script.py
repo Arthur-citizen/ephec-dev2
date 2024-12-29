@@ -31,7 +31,7 @@ def extract_ip(line):
 
 if __name__ == "__main__":
     # demande l'URL ou l'adresse IP de la cible
-    target = input("Entrez l'URL ou l'adresse IP de la cible : ").strip()
+    target = input("Entrez l'URL ou l'adresse IP de la cible (ex: 1.1.1.1 , www.wikipedia.com): ").strip()
     # Demande si l'affichage progressif doit être activé 
     progressive = input("Souhaitez-vous un affichage progressif des résultats ? (y/n) : ").strip().lower() == "y"
     # Demande si un rapport doit être généré 

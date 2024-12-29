@@ -1,4 +1,4 @@
-#Utilisation de chatGPT mais code compris
+# #Utilisation de chatGPT mais code compris et modifié
 # Classe Coordonnees
 class Coordonnees:
     def __init__(self, adresse: str, telephone: str):
@@ -21,31 +21,33 @@ class Personne:
 class Eleve(Personne):
     def __init__(self, etatCivil: str, coordonnees: Coordonnees):
         super().__init__(etatCivil, coordonnees)
+        self.classe = None  # Référence bidirectionnelle
 
 # Classe Professeur
 class Professeur(Personne):
     def __init__(self, etatCivil: str, coordonnees: Coordonnees):
         super().__init__(etatCivil, coordonnees)
 
-# Classe Classe (pour représenter une classe dans une école)
+# Classe Classe
 class Classe:
     def __init__(self, professeur: Professeur):
+        if not isinstance(professeur, Professeur):
+            raise ValueError("Un professeur valide est requis.")
         self.professeur = professeur
         self.eleves = []
 
     def __str__(self):
-        return f"Professeur: {self.professeur}, Élèves: {len(self.eleves)}"
+        return f"Professeur: {self.professeur.etatCivil}, Élèves: {', '.join([eleve.etatCivil for eleve in self.eleves])}"
     
-    def ajouter_professeur(self, nom: str, coordonnees: str):
-        self.professeur = Professeur(nom, self.professeur.coordonnees)
-
+    def ajouter_professeur(self, professeur: Professeur):
+        self.professeur = professeur
 
     def ajouter_eleve(self, eleve: Eleve):
         if len(self.eleves) < 30:
             self.eleves.append(eleve)
+            eleve.classe = self
         else:
             print("La classe est complète (30 élèves maximum).")
-
 
 # Exemple d'utilisation
 if __name__ == "__main__":

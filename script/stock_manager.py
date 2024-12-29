@@ -101,6 +101,7 @@ if __name__ == "__main__":
         print("Commands:")
         print("  consolidate <input_directory> <output_file>")
         print("  summarize <input_file> <report_file>")
+        print("  interact")
         sys.exit(1)
 
     command = sys.argv[1]
@@ -122,6 +123,31 @@ if __name__ == "__main__":
         report_file = sys.argv[3]
         generate_summary_report(input_file, report_file)
         print(f"Summary report generated: {report_file}")
+
+    elif command == "interact":
+        print("=== Mode interactif ===")
+        action = input("Quelle action souhaitez-vous effectuer ? (consolidate/summarize): ").strip().lower()
+
+        if action == "consolidate":
+            input_directory = input("Entrez le chemin du dossier contenant les fichiers CSV à consolider: ").strip()
+            output_file = input("Entrez le nom du fichier de sortie pour les données consolidées: ").strip()
+            try:
+                consolidate_csv_files(input_directory, output_file)
+                print(f"Les fichiers CSV ont été consolidés dans {output_file}.")
+            except Exception as e:
+                print(f"Erreur lors de la consolidation : {e}")
+
+        elif action == "summarize":
+            input_file = input("Entrez le chemin du fichier CSV à résumer: ").strip()
+            report_file = input("Entrez le nom du fichier de sortie pour le rapport: ").strip()
+            try:
+                generate_summary_report(input_file, report_file)
+                print(f"Le rapport a été généré dans {report_file}.")
+            except Exception as e:
+                print(f"Erreur lors de la génération du rapport : {e}")
+
+        else:
+            print("Action non reconnue. Veuillez utiliser 'consolidate' ou 'summarize'.")
 
     else:
         print(f"Unknown command: {command}")

@@ -70,6 +70,6 @@ Exécutez le script sans
 ```bash
 python traceroute_script.py <target> [-p] [-o <output_file>]
 ```
-1. <target> : Remplacez par l'URL ou l'adresse IP de la cible. (Exemple : www.google.com ou 8.8.8.8)
+1. < target > : Remplacez par l'URL ou l'adresse IP de la cible. (Exemple : www.google.com ou 8.8.8.8)
 2. -p : (Optionnel) Affiche les résultats progressivement dans la console.
 3. -o <output_file> : (Optionnel) Spécifie le fichier où sauvegarder les résultats (Exemple : resultat.txt).

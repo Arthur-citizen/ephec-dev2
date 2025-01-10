@@ -65,10 +65,15 @@ python traceroute_script.py
 ```
 ### Mode en ligne de commande
 
-Exécutez le script sans 
+Exécutez le script
 
 ```bash
 python traceroute_script.py <target> [-p] [-o <output_file>]
+```
+Exemple : 
+
+```bash
+python traceroute_script.py 1.1.1.1 -p -o test.txt
 ```
 1. < target > : Remplacez par l'URL ou l'adresse IP de la cible. (Exemple : www.google.com ou 8.8.8.8)
 2. -p : (Optionnel) Affiche les résultats progressivement dans la console.

@@ -3,6 +3,7 @@ import subprocess
 import re
 import platform
 
+
 def traceroute(target, progressive, output_file):
     command = ["traceroute", target] if platform.system() != "Windows" else ["tracert", target]
 
